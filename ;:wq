@@ -1,5 +1,5 @@
 CC = gcc
-CCFLAGS = -std=c99 -Wall -pedantic -g
+CCFLAGS = -std=C90 -ansi  -Wall -pedantic
 
 all: main
 

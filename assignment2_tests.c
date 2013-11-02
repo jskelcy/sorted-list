@@ -49,7 +49,7 @@ int compareStrings(void *p1, void *p2)
  *
  */
 int populate_list(SortedListPtr s, int type, int len, int iargs[], double dargs[],char*sargs[]){
-    
+
     int i;
     if(type == INT){
         for(i = 0; i < len; i++){
@@ -73,9 +73,9 @@ int populate_list(SortedListPtr s, int type, int len, int iargs[], double dargs[
             }
         }
     }
-    
+
     return 1;
-    
+
 }
 
 
@@ -129,9 +129,9 @@ int main(int argc, char*argv[])
 {
     int choice = atoi(argv[1]);
 
-    
+
     printf("Choice: %d\n", choice);
-    
+
     if(choice == 1){
         //1.  Normal SLInserts (@ beginning, middle, end of list)
         //a. integers
@@ -143,27 +143,27 @@ int main(int argc, char*argv[])
         }
         SortedListIteratorPtr iter = SLCreateIterator(s);
         iterprint_all(s,iter,INT); //prints 155 42 7 6 5 -1
-        
-        
+
+
     }else if(choice == 2){
         //b. doubles
         SortedListPtr s = SLCreate(compareDoubles);
-        
+
         double darr[6] = {7.43,5.55,155.26,42.1,-1.5,6.7};
         if(populate_list(s,DOUBLE,sizeof(darr)/sizeof(double),NULL,darr,NULL) == 0){
             failure();
             return 1;
         }
 
-        
+
         SortedListIteratorPtr iter = SLCreateIterator(s);
         iterprint_all(s,iter,DOUBLE); //prints 155.26 42.1 7.43 6.7 5.55 -1.5
-        
-        
+
+
     }else if(choice == 3){
         //c. strings
         SortedListPtr s = SLCreate(compareStrings);
-        
+
         char *carr[6] = {"cat","dog","catamaran","apple","cormorant","zebra"};
         if(populate_list(s,STRING,6,0,0,carr) == 0){
             failure();
@@ -172,9 +172,9 @@ int main(int argc, char*argv[])
 
         SortedListIteratorPtr iter = SLCreateIterator(s);
         iterprint_all(s,iter,STRING); //prints apple cat catamaran cormorant dog zebra
-        
-        
-        
+
+
+
     }else if(choice == 4){
         //SLInsert on null list;
         int x = 5;
@@ -192,7 +192,7 @@ int main(int argc, char*argv[])
         }else{
             failure();
         }
-    
+
     }else if(choice == 6){
         //SLRemove nonexistent element
         SortedListPtr s = SLCreate(compareInts);
@@ -213,14 +213,14 @@ int main(int argc, char*argv[])
 
 
         int toremove = 5;
-        
+
         if (SLRemove(s,&toremove) != 0) {
             SortedListIteratorPtr iter = SLCreateIterator(s);
             iterprint_all_int(s,iter); //prints 155 42 7 6 -1
         }else{
             failure();
         }
-        
+
     }else if(choice == 8){
         //Iterate on empty list
         SortedListPtr s = SLCreate(compareInts);
@@ -232,61 +232,61 @@ int main(int argc, char*argv[])
         SortedListPtr s = SLCreate(compareInts);
         int iarr[6] = {7,5,155,42,-1,6};
         populate_list(s,INT,sizeof(iarr)/sizeof(int),iarr,0,0);
-        
-        
-        
+
+
+
         SortedListIteratorPtr olditer = SLCreateIterator(s);
         void *olditem = SLNextItem(olditer);
         olditem = SLNextItem(olditer);
         SortedListIteratorPtr iter = SLCreateIterator(s);
         SLDestroyIterator(olditer);
-        
+
         iterprint_all_int(s,iter); //prints 155 42 7 6 5 -1
     }else if(choice == 10){ //TODO
         //Create multiple iterators on same list, interleave iterations.
-        
+
         SortedListPtr s = SLCreate(compareInts);
         int iarr[6] = {7,5,155,42,-1,6};
         populate_list(s,INT,sizeof(iarr)/sizeof(int),iarr,0,0);
-        
+
         SortedListIteratorPtr olditer = SLCreateIterator(s);
-        
+
         SortedListIteratorPtr iter = SLCreateIterator(s);
 
-        
+
         void *item;
-        
+
         item = SLNextItem(olditer);
         printf("%d ", *((int*)item));
         item = SLNextItem(olditer);
         printf("%d ", *((int*)item));  //prints 155 42
-        
+
         item = SLNextItem(iter);
         printf("%d ", *((int*)item));
         item = SLNextItem(iter);
         printf("%d ", *((int*)item));
         item = SLNextItem(iter);
         printf("%d ", *((int*)item)); //prints 155 42 7
-        
-        
+
+
         item = SLNextItem(iter);  //prints 6
         printf("%d ", *((int*)item));
         item = SLNextItem(olditer);
         printf("%d ", *((int*)item)); //prints 7
-        
-        
+
+
         iterprint_all_int(s,iter); //prints 5 -1
-        
+
         iterprint_all_int(s,olditer); //prints 6 5 -1
-        
+
     }else if(choice == 11){
         //SLRemove end element, iterator positioned on it
-        
+
         SortedListPtr s = SLCreate(compareInts);
         int iarr[3] = {7,5,3};
         populate_list(s,INT,sizeof(iarr)/sizeof(int),iarr,0,0);
 
-        
+
         SortedListIteratorPtr iter = SLCreateIterator(s);
 
         int x3 = 3;
@@ -297,16 +297,16 @@ int main(int argc, char*argv[])
         }else{
             failure();
         }
-        
+
     }else if(choice == 12){ //TODO
         //SLRemove beginning element, iterator positioned on it
-        
+
         SortedListPtr s = SLCreate(compareInts);
         int iarr[3] = {7,5,3};
         populate_list(s,INT,sizeof(iarr)/sizeof(int),iarr,0,0);
-        
+
         SortedListIteratorPtr iter = SLCreateIterator(s);
-        
+
         int x1 = 7;
         if(SLRemove(s,&x1) && *((int*)SLNextItem(iter)) == 5 &&
            *((int*)SLNextItem(iter)) == 3 &&
@@ -320,15 +320,15 @@ int main(int argc, char*argv[])
         SortedListPtr s = SLCreate(compareInts);
         int iarr[3] = {7,5,3};
         populate_list(s,INT,sizeof(iarr)/sizeof(int),iarr,0,0);
-        
+
         SortedListIteratorPtr iter = SLCreateIterator(s);
         void *item = SLNextItem(iter);
-        
+
         if (*((int*)item) != 7) {
             failure();
             return 1;
         }
-        
+
         int x1 = 5;
         if(SLRemove(s,&x1) && *((int*)SLNextItem(iter)) == 3 &&
            ((int*)SLNextItem(iter)) == NULL){
@@ -341,23 +341,23 @@ int main(int argc, char*argv[])
         SortedListPtr s = SLCreate(compareInts);
         int iarr[3] = {7,5,3};
         populate_list(s,INT,sizeof(iarr)/sizeof(int),iarr,0,0);
-        
+
         SortedListIteratorPtr iter = SLCreateIterator(s);
         void *item = SLNextItem(iter);
         item = SLNextItem(iter);
         int x4 = 4;
         SLInsert(s,&x4); //prints 4 3
-        
+
         iterprint_all_int(s,iter);
-        
-        
+
+
     }else if(choice == 15){
         //Remove element after iterator
         SortedListPtr s = SLCreate(compareInts);
         int iarr[4] = {7,5,3,4};
         populate_list(s,INT,sizeof(iarr)/sizeof(int),iarr,0,0);
-        
-        
+
+
         SortedListIteratorPtr iter = SLCreateIterator(s);
         void *item = SLNextItem(iter);
         item = SLNextItem(iter);
@@ -370,8 +370,8 @@ int main(int argc, char*argv[])
     }else{
         printf("Bad input\n");
     }
-    
-    
+
+
     return 0;
-    
+
 }

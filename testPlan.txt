@@ -1,0 +1,59 @@
+Testplan
+
+Case 1
+Insert:
+17                              
+2
+8
+30
+14
+Iterator get next*2
+List:
+30-17-14-8-2
+Iterator:
+14
+
+Case 2
+Insert:
+17
+2
+8
+30
+14
+Iterator get next*2
+Remove:14
+List:
+30-17-14-8-2
+Iterator:
+8
+
+Case 3
+Insert:
+17
+2
+8
+30
+14
+Iterator get next*2
+Remove: 14
+Insert:9
+List:
+30-17-14-8-2
+Iterator:
+9
+
+Case 3
+Insert:
+17
+2
+8
+30
+14
+Iterator get next*2
+Remove: 14
+Insert:16
+List:
+30-17-14-8-2
+Iterator:
+16
+
